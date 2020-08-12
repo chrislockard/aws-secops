@@ -1,0 +1,6 @@
+SELECT
+  resourceId,
+  resourceType,
+  accountId
+WHERE
+  resourceType = 'AWS::S3::Bucket'
