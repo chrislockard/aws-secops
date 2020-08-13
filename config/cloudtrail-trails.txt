@@ -1,0 +1,7 @@
+SELECT
+  resourceId,
+  resourceType,
+  resourceName,
+  accountId
+WHERE
+  resourceType = 'AWS::CloudTrail::Trail'
