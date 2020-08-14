@@ -1,0 +1,1 @@
+aws organizations list-accounts | jq '.Accounts[] | .Id + ", "+.Email' | cut -d '"' -f2 | tr -d '[:blank:]' | sort -t , -k 2 | wc -l
