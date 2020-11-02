@@ -1,0 +1,10 @@
+SELECT
+  resourceId,
+  resourceType,
+  accountId,
+  supplementaryConfiguration.PublicAccessBlockConfiguration.blockPublicPolicy,
+  supplementaryConfiguration.PublicAccessBlockConfiguration.blockPublicAcls,
+  supplementaryConfiguration.PublicAccessBlockConfiguration.ignorePublicAcls,
+  supplementaryConfiguration.PublicAccessBlockConfiguration.restrictPublicBuckets
+WHERE
+  resourceType = 'AWS::S3::Bucket'
