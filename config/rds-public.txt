@@ -1,0 +1,8 @@
+SELECT
+  resourceId,
+  resourceName,
+  resourceType,
+  accountId,
+  configuration.publiclyAccessible
+WHERE
+  configuration.publiclyAccessible = TRUE
