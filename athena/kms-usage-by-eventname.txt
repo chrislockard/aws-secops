@@ -1,0 +1,11 @@
+SELECT eventname, useridentity.arn,
+         COUNT (useridentity.arn)
+FROM prodsec_cloudtrail
+CROSS JOIN UNNEST(resources) AS t(resource)
+WHERE account = '123456789123'
+        AND year = '2020'
+        AND month = '09'
+        AND day = '02'
+        AND resource.arn = 'arn:aws:kms:us-east-1:<account>:key/<keyid>'
+        AND eventsource like 'kms%'
+GROUP BY  useridentity.arn, eventname
