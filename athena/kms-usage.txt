@@ -1,0 +1,12 @@
+-- Finds references to useridentities accessing a particular kms key
+SELECT useridentity.arn,
+         COUNT (useridentity.arn)
+FROM <table>
+CROSS JOIN UNNEST(resources) AS t(resource)
+WHERE account = '123456789123'
+        AND year = '2020'
+        AND month = '09'
+        AND day > '01'
+        AND day < '05'
+        AND resource.arn = 'arn:aws:kms:us-east-1:<account>:key/<keyid>'
+GROUP BY  useridentity.arn
