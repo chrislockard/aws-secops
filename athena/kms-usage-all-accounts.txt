@@ -1,0 +1,8 @@
+SELECT eventsource, month, day, eventname, count(eventname) as event_count
+FROM <table>
+CROSS JOIN UNNEST(resources) AS t(resource)
+WHERE year = '2020'
+        AND month = '09'
+        AND day >= '02' and day <= '05'
+        AND eventsource like '%kms%'
+GROUP BY  eventname, eventsource, month, day
