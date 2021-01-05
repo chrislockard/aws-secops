@@ -1,0 +1,10 @@
+SELECT eventname, useridentity.arn,
+         COUNT ( useridentity.arn)
+FROM table_name
+WHERE account = '012345678912'
+        AND year = '2021'
+        AND month = '01'
+        AND day >= '01'
+        AND day <= '05'
+        AND eventname like 'CreateLogStream'
+GROUP BY  useridentity.arn, eventname
