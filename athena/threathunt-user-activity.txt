@@ -1,19 +1,11 @@
 -- Look for activity performed by a user during a specific time period
-SELECT eventtime,
-       eventsource,
-       eventname,
-       awsregion,
-       sourceipaddress,
-       errorcode,
-       errormessage,
-       requestparameters,
-       resources,
-       resource,
-       useridentity.arn,
-       year
+-- to answer the question "What did the user do during a timeframe?"
+SELECT eventsource,eventname,useridentity.arn
 FROM <table name>
 CROSS JOIN UNNEST(resources) AS t(resource)
 WHERE year = '2021'
-        AND eventtime >= '2021-01-29T00:00:00Z'
-        AND eventtime <= '2021-02-04T00:00:00Z'
-        AND useridentity.arn LIKE 'arn:%<username>%'
+      AND month = '02'
+      AND day = '04'
+      AND eventtime >= '2021-02-04T08:00:00Z'
+      AND eventtime <= '2021-02-04T12:00:00Z'
+      AND useridentity.arn LIKE 'arn:%<username>%'
