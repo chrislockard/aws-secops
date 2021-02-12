@@ -7,4 +7,7 @@ SELECT
   supplementaryConfiguration.PublicAccessBlockConfiguration.ignorePublicAcls,
   supplementaryConfiguration.PublicAccessBlockConfiguration.restrictPublicBuckets
 WHERE
-  resourceType = 'AWS::S3::Bucket'
+  supplementaryConfiguration.PublicAccessBlockConfiguration.blockPublicPolicy = 'false'
+  OR supplementaryConfiguration.PublicAccessBlockConfiguration.blockPublicAcls = 'false'
+  OR supplementaryConfiguration.PublicAccessBlockConfiguration.ignorePublicAcls = 'false'
+  OR supplementaryConfiguration.PublicAccessBlockConfiguration.restrictPublicBuckets = 'false'

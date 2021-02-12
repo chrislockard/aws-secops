@@ -9,3 +9,4 @@ WHERE year = '2021'
       AND eventtime >= '2021-02-04T08:00:00Z'
       AND eventtime <= '2021-02-04T12:00:00Z'
       AND useridentity.arn LIKE 'arn:%<username>%'
+GROUP BY account, eventsource, eventname, useridentity.arn
