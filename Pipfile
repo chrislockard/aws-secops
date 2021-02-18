@@ -4,11 +4,19 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+<<<<<<< HEAD
 pytest = "*"
 boto3 = "*"
 click = "*"
+=======
+boto3 = "*"
+>>>>>>> 1a49a33342184952372539451f149b0d9780a89f
 
 [dev-packages]
 
 [requires]
+<<<<<<< HEAD
 python_version = "3.9"
+=======
+python_version = "3.8"
+>>>>>>> 1a49a33342184952372539451f149b0d9780a89f
