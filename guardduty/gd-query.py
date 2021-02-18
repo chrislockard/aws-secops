@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 import boto3
 import time
+import click
 
 
 def query(session):
-    """
+    # TODO sort by account id, sort by event type, sort by time and generate trending
+    # of events by type in an account over time
+ """
     Docstring
     """
 
@@ -54,12 +57,14 @@ def query(session):
     for result in finding_results:
         if 'Amazon S3 Block Public Access was disabled for' in result.get('Description', ''):
             print(result)
-
+            
+@click.command(context_settings=dict(ignore_unknown_options=True))
+@click.option('--profile', required=True, default='default', help='AWS profile from ~/.aws/config or ~/.aws/credentials')
+def main(profile):
+    # For SSO profiles, enter <account name>.<role name>
+    session = boto3.session.Session(profile_name=profile)
+    query(session)
 
 if __name__ == '__main__':
-    # For SSO profiles, enter <account name>.<role name>
-    # TODO sort by account id, sort by event type, sort by time and generate trending
-    # of events by type in an account over time
-    profile_name = '<account name>.<role name>'
-    session = boto3.session.Session(profile_name=profile_name)
-    query(session)
+   # profile_name = 'default'
+    main()
