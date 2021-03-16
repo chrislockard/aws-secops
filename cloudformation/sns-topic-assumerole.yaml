@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+# Stack Name: SecOps-CloudWatch-AssumeRole-SNS
+Parameters:
+  PagerDutyTarget:
+    Type: String
+    Description: 'PagerDuty Integration URL'
+Resources:
+  SecOpsCloudWatchEventTriggerTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      Subscription:
+        - Endpoint: !Ref PagerDutyTarget
+          Protocol: https
+      DisplayName: 'SecOpsCWEventTrigger'
+  SecOpsCloudWatchEventTriggerTopicPolicy:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowCloudWatchToPublish
+            Effect: 'Allow'
+            Principal:
+              Service: 'cloudwatch.amazonaws.com'
+            Action: 'sns:Publish'
+            Resource: "*"
+      Topics:
+        - Ref: SecOpsCloudWatchEventTriggerTopic
