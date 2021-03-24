@@ -2,15 +2,36 @@
 import boto3
 import click
 
+
 def listMembers(session):
-    """
-    Docstring
+    """Lists member accounts that are associated with Security Hub
+
+    Args:
+      session: boto3 session
+
+    Returns:
+      Returns a list of account email addresses and AccountIds
     """
 
     sh_client = session.client('securityhub')
-    # TODO make this useful
-    response = sh_client.list_members(OnlyAssociated=True)
-    print(response)
+    counter = 0
+
+    # use paginator if more than 1000 results or memory issues with the results
+    paginator = sh_client.get_paginator('list_members')
+    results = []
+
+    for page in paginator.paginate(OnlyAssociated=True):
+        results += page.get('Members', [])
+
+    for result in results:
+        email = result.get('Email')
+        accountID = result.get('AccountId')
+        print(accountID, email)
+        if email is None:
+            counter += 1
+
+    print(counter, 'accounts have no email')
+
 
 @click.command(context_settings=dict(ignore_unknown_options=True))
 @click.option('--profile', required=True, default='default', help='AWS profile from ~/.aws/config or ~/.aws/credentials')
@@ -19,6 +40,6 @@ def main(profile):
     session = boto3.session.Session(profile_name=profile)
     listMembers(session)
 
+
 if __name__ == '__main__':
-   # profile_name = 'default'
     main()
