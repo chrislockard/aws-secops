@@ -1,0 +1,5 @@
+SELECT
+  *,
+  configuration.distributionConfig.origins.items -- configuration.relationships.resourceType
+WHERE
+  resourceType = 'AWS::CloudFront::Distribution'
