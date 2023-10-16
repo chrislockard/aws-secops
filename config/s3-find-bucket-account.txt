@@ -1,0 +1,7 @@
+SELECT
+  resourceId,
+  resourceType,
+  accountId
+WHERE
+  resourceType = 'AWS::S3::Bucket'
+  AND resourceName LIKE '<bucketname>%'
